@@ -10,6 +10,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIRBlazorTest", "BIRBlazorTest\BIRBlazorTest.csproj", "{2E6E425E-2B12-426C-B6E2-F269864790DA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EAD19EFA-0F5B-4E4C-8D57-B36CE6FF3DE5}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimpleFileParser", "SimpleFileParser", "{57987BE9-BB3C-4B81-BD1D-4EB0459C7CD5}"
 EndProject
