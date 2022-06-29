@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BIRService\BIRService.csproj" />
+    <ProjectReference Include="..\MFApiService\MFApiService.csproj" />
   </ItemGroup>
 
 </Project>

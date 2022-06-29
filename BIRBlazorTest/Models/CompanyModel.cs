@@ -1,4 +1,4 @@
-﻿using BIRService.Models;
+﻿
 using System.ComponentModel.DataAnnotations;
 
 namespace BIRBlazorTest.Models

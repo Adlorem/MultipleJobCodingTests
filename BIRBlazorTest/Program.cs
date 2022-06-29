@@ -1,17 +1,17 @@
 using BIRBlazorTest.DBContext;
 using BIRBlazorTest.Services;
-using BIRService;
+using MFApiService.Api;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 // Daj klucz servisowy z ustawieñ
-var birKey = builder.Configuration.GetSection("BIRService").Value;
+//var birKey = builder.Configuration.GetSection("BIRService").Value;
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<RegonService>();
-builder.Services.AddTransient<IBIRSearchService>(x => new BIRSearchService(birKey));
+builder.Services.AddSingleton<IDefaultApi, DefaultApi>();
 
 builder.Services.AddDbContext<CompanyDBContext>(options =>
 {

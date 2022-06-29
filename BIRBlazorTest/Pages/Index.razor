@@ -1,8 +1,9 @@
 ﻿@page "/"
 @using BIRBlazorTest.Models
 @using BIRBlazorTest.Enums
-@inject RegonService RegonService
+
 @inject ICompanyServices CompanyService
+@inject RegonService RegonService
 
 <PageTitle>Index</PageTitle>
 
@@ -96,7 +97,7 @@
 
 
 @code {
-    private CompanyWebModel  _model = new CompanyWebModel();
+    private CompanyModel  _model = new CompanyModel();
     private bool _isLoading = false;
     private List<string> _errorList = new List<string>();
 
@@ -139,13 +140,6 @@
 
         _isLoading = false;
 
-        if (_model.Errors.Count > 0)
-        {           
-            foreach (var error in _model.Errors)
-            {
-                _errorList.Add(error.ErrorMessagePl);
-            }
-        }
 
         StateHasChanged();
     }

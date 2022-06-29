@@ -1,6 +1,5 @@
 ﻿using BIRBlazorTest.DBContext;
 using BIRBlazorTest.Models;
-using BIRService.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BIRBlazorTest.Services

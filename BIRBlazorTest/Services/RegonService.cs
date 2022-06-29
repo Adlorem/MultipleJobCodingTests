@@ -1,49 +1,54 @@
 ﻿using BIRBlazorTest.Models;
-using BIRService;
+using MFApiService.Api;
+using System.Net;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace BIRBlazorTest.Services
 {
     public class RegonService
     {
-        IBIRSearchService _birSearchService;
+        IDefaultApi _birSearchService;
 
-        public RegonService(IBIRSearchService birSearchService)
+        public RegonService(IDefaultApi birSearchService)
         {
             _birSearchService = birSearchService;
         }
 
-        public async Task<CompanyWebModel> GetCompanyDataByNipAsync(string vatId)
+        public async Task<CompanyModel> GetCompanyDataByNipAsync(string vatId)
         {
-            var search = await _birSearchService.GetCompanyDataByNipIdAsync(vatId);
+            var search = await _birSearchService.NipdateAsync(vatId, DateTime.Now);
+            CompanyModel model = new CompanyModel();
 
-            var separator = string.IsNullOrEmpty(search.NrLokalu) ? string.Empty : "/";
+            if (search != null && search.Result.Subject != null)
+{
+                var item = search.Result.Subject;
 
-            CompanyWebModel model = new CompanyWebModel
-            {
-                Name = search.Nazwa,
-                Vat = search.Nip,
-                Address = $"{search.Ulica} {search.NrNieruchomosci}{separator}{search.NrLokalu} {search.KodPocztowy} {search.Miejscowosc}",
-                Regon = search.Regon,
-                Errors = search.Errors,
-            };
+                model.Name = item.Name;
+                model.Vat = item.Nip;
+                model.Address = item.WorkingAddress != null ? item.WorkingAddress : item.ResidenceAddress;
+                model.Regon = item.Regon;
+            }
             return model;
         }
 
-        public async Task<CompanyWebModel> GetCompanyDataByRegonAsync(string regonId)
+        public async Task<CompanyModel> GetCompanyDataByRegonAsync(string regonId)
         {
-            var search = await _birSearchService.GetCompanyDataByRegonAsync(regonId);
+            var search = await _birSearchService.RegondateAsync(regonId, DateTime.Now);
+            CompanyModel model = new CompanyModel();
 
-            var separator = string.IsNullOrEmpty(search.NrLokalu) ? string.Empty : "/";
-
-            CompanyWebModel model = new CompanyWebModel
+            if (search != null && search.Result.Subject != null)
             {
-                Name = search.Nazwa,
-                Vat = search.Nip,
-                Address = $"{search.Ulica} {search.NrNieruchomosci}{separator}{search.NrLokalu} {search.KodPocztowy} {search.Miejscowosc}",
-                Regon = search.Regon,
-                Errors = search.Errors,
-            };
+                var item = search.Result.Subject;
+
+                model.Name = item.Name;
+                model.Vat = item.Nip;
+                model.Address = item.WorkingAddress != null ? item.WorkingAddress : item.ResidenceAddress;
+                model.Regon = item.Regon;
+            }
             return model;
         }
+
+
     }
 }
